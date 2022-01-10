@@ -3,8 +3,8 @@ import React from 'react'
 function Card(props) {
   const { Title: title, Year: year, ImdbID: id, Poster: poster } = props
   return (
-    <div className="row">
-      <div className="col s12 m7">
+    <div className="row movie">
+      <div className="col s12">
         <div className="card" id={id}>
           <div className="card-image">
             <img src={poster} />
