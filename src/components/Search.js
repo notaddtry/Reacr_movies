@@ -1,14 +1,27 @@
 import React, { Component } from 'react'
+import Filter from './Filter'
 
 class Search extends Component {
   state = {
     search: '',
+    type: 'all',
   }
 
   handleKey = (event) => {
     if (event.key === 'Enter') {
-      this.props.searchMovies(this.state.search)
+      event.preventDefault()
+      this.props.searchMovies(this.state.search, this.state.type)
     }
+  }
+
+  handleFilter = (event) => {
+    event.preventDefault()
+    this.setState(
+      () => ({ type: event.target.dataset.type }),
+      () => {
+        this.props.searchMovies(this.state.search, this.state.type)
+      }
+    )
   }
 
   render() {
@@ -29,8 +42,9 @@ class Search extends Component {
               />
               <button
                 className="btn"
-                onClick={() => {
-                  this.props.searchMovies(this.state.search)
+                onClick={(event) => {
+                  event.preventDefault()
+                  this.props.searchMovies(this.state.search, this.state.type)
                 }}
               >
                 SEARCH
@@ -38,6 +52,7 @@ class Search extends Component {
             </div>
           </div>
         </form>
+        <Filter type={this.state.type} onFilter={this.handleFilter} />
       </div>
     )
   }
