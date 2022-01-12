@@ -2,13 +2,15 @@ import React from 'react'
 import Card from './Card'
 
 function Cards(props) {
-  const { movies } = props
+  const { movies = [] } = props
 
   return (
     <div className="movies">
-      {movies.map((movie) => {
-        return <Card key={movie.imdbID} {...movie} />
-      })}
+      {movies.length ? (
+        movies.map((movie) => <Card key={movie.imdbID} {...movie} />)
+      ) : (
+        <h3>Not found</h3>
+      )}
     </div>
   )
 }
